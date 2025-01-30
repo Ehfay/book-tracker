@@ -1,0 +1,34 @@
+# Node.js
+node_modules/
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+
+# Environment variables
+.env
+
+# Logs
+logs
+*.log
+*.log.*
+
+# Build files
+/dist
+/build
+
+# Operating System files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+
+# Database files
+*.sqlite
+*.db
+*.pgdata
+
+# Temporary files
+*.swp
+
