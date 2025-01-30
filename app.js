@@ -7,15 +7,18 @@ require('dotenv').config();
 
 const app = express();
 
-// Conditionally apply SSL based on the environment
 const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,  // Use DATABASE_URL for Railway
-  ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false,  // Apply SSL only in production
+  user: process.env.DB_USER,
+  host: process.env.DB_HOST,
+  database: process.env.DB_NAME,
+  password: process.env.DB_PASSWORD,
+  port: process.env.DB_PORT,
 });
 
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: true }));
+
 
 app.get('/', async (req, res) => {
   try {
@@ -27,12 +30,15 @@ app.get('/', async (req, res) => {
   }
 });
 
+
 app.get('/add', (req, res) => {
   res.render('addBook', { title: 'Add a new Book' });
 });
 
+
 app.post('/add', async (req, res) => {
   const { title, author, genre, status, isbn, review } = req.body;
+
   let coverImage;
 
   try {
@@ -54,6 +60,7 @@ app.post('/add', async (req, res) => {
   }
 });
 
+
 app.get('/edit/:id', async (req, res) => {
   const id = req.params.id;
   try {
@@ -64,6 +71,7 @@ app.get('/edit/:id', async (req, res) => {
     res.status(500).send('Server Error');
   }
 });
+
 
 app.post('/edit/:id', async (req, res) => {
   const id = req.params.id;
@@ -80,6 +88,7 @@ app.post('/edit/:id', async (req, res) => {
     res.status(500).send('Server Error');
   }
 });
+
 
 app.post('/delete/:id', async (req, res) => {
   const id = req.params.id;
