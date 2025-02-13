@@ -49,7 +49,7 @@ app.post('/add', async (req, res) => {
     }
 
     await pool.query(
-      'INSERT INTO books (title, author, genre, status, coverImage, review) VALUES ($1, $2, $3, $4, $5, $6)',
+      'INSERT INTO books (title, author, genre, status, "coverImage", review) VALUES ($1, $2, $3, $4, $5, $6)',
       [title, author, genre, status, coverImage, review]
     );
 
